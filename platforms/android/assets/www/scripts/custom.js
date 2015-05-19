@@ -674,7 +674,18 @@ $(document).ready(function() {
             success: function(response, status) {
                 
 					 carPosision = new google.maps.LatLng(response[0][1], response[0][2]); 
-           
+                                        var contentString = '<div id="content">'+
+                                           '<div id="siteNotice">'+
+                                           '</div>'+
+                                           '<h1 id="firstHeading" class="firstHeading">'+response[0][1]+' '+ response[0][2]+'</h1>'+
+                                           '<div id="bodyContent">'+
+                                           '<p><b>Data</b>, '+response[0][3]+' <br/>' +
+                                           '<b>Velocidade</b>, '+response[0][4]+' Km/h<br/>' +
+                                           '<b>Nivel Bateria</b>,'+ response[0][5]+' <br/>' +
+                                           '<b>Nivel Sinal</b>, '+response[0][6]+' <br/>' +
+                                          
+                                           '</div>'+
+                                           '</div>';
 						var myOptions = {
                         zoom: 16,
                         center: latlng,
@@ -682,9 +693,13 @@ $(document).ready(function() {
                         mapTypeId: google.maps.MapTypeId.ROADMAP};
 						
 						var map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
-						var infowindow = new google.maps.InfoWindow({
+                                                var infowindow = new google.maps.InfoWindow({
                                   position: latlng,
-                                  content: '<p>Localização</p>'+latlng
+                                  content: "Sua Localização"
+								  });
+						var infowindowc = new google.maps.InfoWindow({
+                                  position: latlng,
+                                  content: contentString
 								  });
 						
 						var markerC = new google.maps.Marker({
@@ -702,7 +717,7 @@ $(document).ready(function() {
                                                         
                     	});
 						google.maps.event.addListener(marker, 'click', function() {infowindow.open(map,marker);});
-						 google.maps.event.addListener(markerC, 'click', function() {infowindow.open(map,markerC);});
+						 google.maps.event.addListener(markerC, 'click', function() {infowindowc.open(map,markerC);});
 					
                                              }});
                                              }// Fin muestra mapa
