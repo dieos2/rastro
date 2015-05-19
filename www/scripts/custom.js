@@ -660,11 +660,21 @@ $(document).ready(function() {
 					else {
                     MuestraMapa(defaultPos);  // No soporta geolocalizacion y dibuja el mapa en posicion Default
                		 }
-					var carPosision = new google.maps.LatLng(-1.45305889, -48.48056657); 
-                                       
+                         
+                        
 					 //FUNCION DIBUJAR MAPa
 					 function MuestraMapa(latlng) {
-						
+                                            
+						 var carPosision =defaultPos;// new google.maps.LatLng(-1.45305889, -48.48056657); 
+                          $.ajax({
+            type: "get",
+            url: "http://www.rastro.casadogui.com.br/index.php?r=localizacao/getGeo",
+           
+            dataType: "json",
+            success: function(response, status) {
+                
+					 carPosision = new google.maps.LatLng(response[0][1], response[0][2]); 
+           
 						var myOptions = {
                         zoom: 16,
                         center: latlng,
@@ -693,7 +703,9 @@ $(document).ready(function() {
                     	});
 						google.maps.event.addListener(marker, 'click', function() {infowindow.open(map,marker);});
 						 google.maps.event.addListener(markerC, 'click', function() {infowindow.open(map,markerC);});
-					 }// Fin muestra mapa
+					
+                                             }});
+                                             }// Fin muestra mapa
 				
 				});			
 }(jQuery));
