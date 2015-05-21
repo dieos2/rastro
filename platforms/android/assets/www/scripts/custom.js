@@ -641,9 +641,9 @@ $(document).ready(function() {
 				var defaultPos = new google.maps.LatLng(19.289168, -99.653440);
 				
 				if (navigator.geolocation) {
-                                    debugger;
+                                   
 		                function exito(pos) {
-                                    debugger;
+                                    
                      		MuestraMapa(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
 						 
                    		}
@@ -674,7 +674,7 @@ $(document).ready(function() {
            
             dataType: "json",
             success: function(response, status) {
-                debugger;
+              
 					 carPosision = new google.maps.LatLng(response[0][1], response[0][2]); 
                                         var contentString = '<div id="content">'+
                                            '<div id="siteNotice">'+
@@ -727,10 +727,10 @@ $(document).ready(function() {
 				  function Reload(){
                             
                              setTimeout(function() {
-                             debugger;
+                            
 			setTimeout(function()
 			{
-				 debugger;
+				
 				
 				var options = {maximumAge: 500000, enableHighAccuracy:true, timeout: 5000};
 						navigator.geolocation.getCurrentPosition(exito, falla, options );
