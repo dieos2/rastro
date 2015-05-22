@@ -639,11 +639,13 @@ $(document).ready(function() {
 		$( document ).on( "pageinit", "#paginaMapa", function(e,data) {
 				
 				var defaultPos = new google.maps.LatLng(19.289168, -99.653440);
-				
+				var lat;
+                                var long;
 				if (navigator.geolocation) {
                                    
 		                function exito(pos) {
-                                    
+                                    lat = pos.coords.latitude;
+                                    long = pos.coords.longitude;
                      		MuestraMapa(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
 						 
                    		}
@@ -674,20 +676,78 @@ $(document).ready(function() {
            
             dataType: "json",
             success: function(response, status) {
-              
+                                        debugger;
 					 carPosision = new google.maps.LatLng(response[0][1], response[0][2]); 
-                                        var contentString = '<div id="content">'+
+                                         CalculaDistancia(response[0][1]+','+response[0][2], lat +','+ long, response[0][3], latlng,carPosision)
+                                       
+                                            Reload();
+                                             }});
+                                             }// Fin muestra mapa
+				  function Reload(){
+                            
+                             setTimeout(function() {
+                            
+			setTimeout(function()
+			{
+				
+				
+				var options = {maximumAge: 500000, enableHighAccuracy:true, timeout: 5000};
+						navigator.geolocation.getCurrentPosition(exito, falla, options );
+			}, 1000);
+                                       
+                                        }, 45000);
+                           
+                        }
+                        
+                        function CalculaDistancia(localObjeto, localUser, data, latlng, carPosision )
+                        {
+                            debugger;
+                       var origin = localUser,
+             destination = localObjeto,
+             service = new google.maps.DistanceMatrixService();
+           debugger;
+         service.getDistanceMatrix(
+             {
+               
+                 origins: [origin],
+                 destinations: [destination],
+                 travelMode: google.maps.TravelMode.WALKING,
+                 avoidHighways: false,
+                 avoidTolls: false
+             }, 
+             callback
+         );
+         
+         function callback(responseMatrix, status) {
+               debugger;
+               
+            
+              
+            
+             var contentString = '<div id="content">'+
                                            '<div id="siteNotice">'+
                                            '</div>'+
-                                           '<h1 id="firstHeading" class="firstHeading">'+response[0][1]+' '+ response[0][2]+'</h1>'+
+                                           '<h2 id="firstHeading" class="firstHeading">'+responseMatrix.destinationAddresses[0]+'</h2>'+
                                            '<div id="bodyContent">'+
-                                           '<p><b>Data</b>, '+response[0][3]+' <br/>' +
-                                           '<b>Velocidade</b>, '+response[0][4]+' Km/h<br/>' +
-                                           '<b>Nivel Bateria</b>,'+ response[0][5]+' <br/>' +
-                                           '<b>Nivel Sinal</b>, '+response[0][6]+' <br/>' +
+                                           '<p><b>Data</b>, '+data+' <br/>' +
+                                           //'<b>Velocidade</b>, '+response[0][4]+' Km/h<br/>' +
+                                           //'<b>Nivel Bateria</b>,'+ response[0][5]+' <br/>' +
+                                           //'<b>Nivel Sinal</b>, '+response[0][6]+' <br/>' +
                                           
                                            '</div>'+
                                            '</div>';
+                                   
+             var contentStringUser = '<div id="content">'+
+                                           '<div id="siteNotice">'+
+                                           '</div>'+
+                                           '<h2 id="firstHeading" class="firstHeading">'+responseMatrix.originAddresses[0]+'</h2>'+
+                                           '<div id="bodyContent">'+
+                                           '<p><b>Distancia</b>, '+responseMatrix.rows[0].elements[0].distance.text+' <br/>' +
+                                           '<b>Tempo</b>, '+responseMatrix.rows[0].elements[0].duration.text+'andando <br/></p>' +
+                                          
+                                          
+                                           '</div>'+
+                                           '</div>';                       
 						var myOptions = {
                         zoom: 16,
                         center: latlng,
@@ -697,7 +757,7 @@ $(document).ready(function() {
 						var map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
                                                 var infowindow = new google.maps.InfoWindow({
                                   position: latlng,
-                                  content: "Sua Localização"
+                                  content: contentStringUser
 								  });
 						var infowindowc = new google.maps.InfoWindow({
                                   position: latlng,
@@ -721,23 +781,7 @@ $(document).ready(function() {
 						google.maps.event.addListener(marker, 'click', function() {infowindow.open(map,marker);});
 						 google.maps.event.addListener(markerC, 'click', function() {infowindowc.open(map,markerC);});
 					
-                                            Reload();
-                                             }});
-                                             }// Fin muestra mapa
-				  function Reload(){
-                            
-                             setTimeout(function() {
-                            
-			setTimeout(function()
-			{
-				
-				
-				var options = {maximumAge: 500000, enableHighAccuracy:true, timeout: 5000};
-						navigator.geolocation.getCurrentPosition(exito, falla, options );
-			}, 1000);
-                                       
-                                        }, 45000);
-                           
+         }
                         }
 				});	
                                 
