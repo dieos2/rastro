@@ -743,7 +743,7 @@ $(document).ready(function() {
                                            '<h2 id="firstHeading" class="firstHeading">'+responseMatrix.originAddresses[0]+'</h2>'+
                                            '<div id="bodyContent">'+
                                            '<p><b>Distancia</b>, '+responseMatrix.rows[0].elements[0].distance.text+' <br/>' +
-                                           '<b>Tempo</b>, '+responseMatrix.rows[0].elements[0].duration.text+'andando <br/></p>' +
+                                           '<b>Tempo</b>, '+responseMatrix.rows[0].elements[0].duration.text+' andando <br/></p>' +
                                           
                                           
                                            '</div>'+
