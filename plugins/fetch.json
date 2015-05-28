@@ -1,0 +1,10 @@
+{
+    "com.clone.phonegap.plugins.PushPlugin": {
+        "source": {
+            "type": "registry",
+            "id": "com.clone.phonegap.plugins.pushplugin"
+        },
+        "is_top_level": true,
+        "variables": {}
+    }
+}
