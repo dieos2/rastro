@@ -637,7 +637,7 @@ $(document).ready(function() {
 });
 				
 		$( document ).on( "pageinit", "#paginaMapa", function(e,data) {
-				
+                   
 				var defaultPos = new google.maps.LatLng(19.289168, -99.653440);
 				var lat;
                                 var long;
@@ -676,7 +676,7 @@ $(document).ready(function() {
            
             dataType: "json",
             success: function(response, status) {
-                                        debugger;
+                                       
 					 carPosision = new google.maps.LatLng(response[0][1], response[0][2]); 
                                          CalculaDistancia(response[0][1]+','+response[0][2], lat +','+ long, response[0][3], latlng,carPosision)
                                        
@@ -701,11 +701,11 @@ $(document).ready(function() {
                         
                         function CalculaDistancia(localObjeto, localUser, data, latlng, carPosision )
                         {
-                            debugger;
+                            
                        var origin = localUser,
              destination = localObjeto,
              service = new google.maps.DistanceMatrixService();
-           debugger;
+           
          service.getDistanceMatrix(
              {
                
@@ -719,9 +719,23 @@ $(document).ready(function() {
          );
          
          function callback(responseMatrix, status) {
-               debugger;
-               
-            
+              
+               var zoom = 18;
+             today=new Date();
+                    d = today.getDate();
+                    me= today.getMonth() +1;
+                    ano = today.getFullYear();
+
+                    h=today.getHours();
+                    m=today.getMinutes();
+                    s= today.setSeconds(today.getSeconds()+45);
+                    hora = ano +"/0"+me+"/"+d+" "+h+":0"+today.getMinutes()+":0"+today.getSeconds();
+                    debugger;
+				$("#clock").countdown(hora, function(event) {
+                             $(this).text(
+                               event.strftime('%S')
+                                 );
+                            });
               
             
              var contentString = '<div id="content">'+
@@ -747,9 +761,16 @@ $(document).ready(function() {
                                           
                                           
                                            '</div>'+
-                                           '</div>';                       
+                                           '</div>';   
+                                   if(parseInt(responseMatrix.rows[0].elements[0].distance.text) < 10)
+                                   {zoom =  16;}
+                               else if(parseInt(responseMatrix.rows[0].elements[0].distance.text) < 30)
+                               {zoom = 10;}
+                               else 
+                               {zoom = 5;}
+                                 
 						var myOptions = {
-                        zoom: 16,
+                        zoom: zoom,
                         center: latlng,
 						disableDefaultUI: true,
                         mapTypeId: google.maps.MapTypeId.ROADMAP};
