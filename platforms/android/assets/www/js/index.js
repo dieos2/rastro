@@ -15,6 +15,7 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
+        debugger;
         app.receivedEvent('deviceready');
         var pushNotification = window.plugins.pushNotification;
         pushNotification.register(app.successHandler, app.errorHandler,{"senderID":"38166534115","ecb":"br.com.casadogui.outroNome"});
@@ -33,9 +34,11 @@ var app = {
     },
     // result contains any message sent from the plugin call
     successHandler: function(result) {
+        debugger;
         alert('Callback Success! Result = '+result)
     },
     errorHandler:function(error) {
+        debugger;
         alert(error);
     },
     onNotificationGCM: function(e) {
@@ -43,7 +46,7 @@ var app = {
         {
             case 'registered':
                 if ( e.regid.length > 0 )
-                {
+                {debugger;
                     console.log("Regid " + e.regid);
                     alert('registration id = '+e.regid);
                 }
@@ -51,14 +54,17 @@ var app = {
 
             case 'message':
                 // this is the actual push notification. its format depends on the data model from the push server
+               debugger;
                 alert('message = '+e.message+' msgcnt = '+e.msgcnt);
                 break;
 
             case 'error':
+                debugger;
                 alert('GCM error = '+e.msg);
                 break;
 
             default:
+               debugger;
                 alert('An unknown GCM event has occurred');
                 break;
         }
