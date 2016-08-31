@@ -637,7 +637,7 @@ $(document).ready(function() {
 });
 				
 		$( document ).on( "pageinit", "#paginaMapa", function(e,data) {
-				
+		    debugger;
 				var defaultPos = new google.maps.LatLng(19.289168, -99.653440);
 				
 				if (navigator.geolocation) {
@@ -668,12 +668,12 @@ $(document).ready(function() {
 						 var carPosision =defaultPos;// new google.maps.LatLng(-1.45305889, -48.48056657); 
                           $.ajax({
             type: "get",
-            url: "http://www.rastro.casadogui.com.br/index.php?r=localizacao/getGeo",
+            url: "http://www.onbyte.com.br/rastro/api/localizacao/local/",
            
             dataType: "json",
             success: function(response, status) {
-                
-					 carPosision = new google.maps.LatLng(response[0][1], response[0][2]); 
+                debugger;
+                carPosision = new google.maps.LatLng(response.resultado.lati, response.resultado.longi);
            
 						var myOptions = {
                         zoom: 16,
