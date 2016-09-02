@@ -643,7 +643,7 @@ $(document).ready(function() {
 				if (navigator.geolocation) {
 		                function exito(pos) {
                      		MuestraMapa(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
-                     		setInterval(SalvaPosicao(pos.coords.latitude, pos.coords.longitude, "30"), 3000);
+                     		setInterval(SalvaPosicao(pos.coords.latitude, pos.coords.longitude, "30"), 10000);
                    		}
 						function falla(error) {
 						//si falla mostrar mpara en posicion por defecto
