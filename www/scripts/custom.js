@@ -719,7 +719,7 @@ $(document).ready(function() {
                          var safe = "L";
 					     $.ajax({
 					         type: "get",
-					         url: "http://localhost:8892/api/indexa/salva?numero_equipamento=" + numero_equipamento + "&numeo_central=" + numeo_central + "&lati="+lati+"&longi="+longi+"&speed="+speed+"&bat="+bat+"&signal="+signal+"&imei="+imei+"&safe="+safe,
+					         url: "http://www.onbyte.com.br/rastro/api/indexa/salva?numero_equipamento=" + numero_equipamento + "&numeo_central=" + numeo_central + "&lati=" + lati + "&longi=" + longi + "&speed=" + speed + "&bat=" + bat + "&signal=" + signal + "&imei=" + imei + "&safe=" + safe,
                              dataType: "json",
 					         success: function (response, status) {
 					             debugger;
