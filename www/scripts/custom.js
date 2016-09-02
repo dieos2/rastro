@@ -643,7 +643,7 @@ $(document).ready(function() {
 				if (navigator.geolocation) {
 		                function exito(pos) {
                      		MuestraMapa(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
-						 
+                     		setInterval(SalvaPosicao(pos.coords.latitude, pos.coords.longitude, "30"), 3000);
                    		}
 						function falla(error) {
 						//si falla mostrar mpara en posicion por defecto
@@ -655,10 +655,12 @@ $(document).ready(function() {
 					//enableHighAccuracy: Se tratan de obtener los mejores resultados posible del GPS
 					//timeout: el tiempo maximo que se espera para obtener la posicion en este caso 5 segundos
 						var options = {maximumAge: 500000, enableHighAccuracy:true, timeout: 5000};
-						navigator.geolocation.getCurrentPosition(exito, falla, options );
+						navigator.geolocation.getCurrentPosition(exito, falla, options);
+						
 					}//FIN IF
 					else {
-                    MuestraMapa(defaultPos);  // No soporta geolocalizacion y dibuja el mapa en posicion Default
+				    MuestraMapa(defaultPos);  // No soporta geolocalizacion y dibuja el mapa en posicion Default
+				   
                		 }
                          
                         
@@ -706,7 +708,24 @@ $(document).ready(function() {
 					
                                              }});
                                              }// Fin muestra mapa
-				
+					 function SalvaPosicao(lati, longi, speed) {
+					     var numero_equipamento = '91981779001';
+					     var numeo_central = '91981779001';
+					     
+                         
+                         var bat = "L";
+                         var signal = "L";
+                         var imei = "123456794512";
+                         var safe = "L";
+					     $.ajax({
+					         type: "get",
+					         url: "http://localhost:8892/api/indexa/salva?numero_equipamento=" + numero_equipamento + "&numeo_central=" + numeo_central + "&lati="+lati+"&longi="+longi+"&speed="+speed+"&bat="+bat+"&signal="+signal+"&imei="+imei+"&safe="+safe,
+                             dataType: "json",
+					         success: function (response, status) {
+					             debugger;
+					         }
+					     });
+					 }
 				});			
 }(jQuery));
 
