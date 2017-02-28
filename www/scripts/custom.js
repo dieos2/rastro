@@ -643,7 +643,7 @@ $(document).ready(function() {
 				if (navigator.geolocation) {
 		                function exito(pos) {
                      		MuestraMapa(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
-                     		setInterval(SalvaPosicao(pos.coords.latitude, pos.coords.longitude, "30"), 10000);
+                     		//setInterval(SalvaPosicao(pos.coords.latitude, pos.coords.longitude, "30"), 10000);
                    		}
 						function falla(error) {
 						//si falla mostrar mpara en posicion por defecto
@@ -708,24 +708,25 @@ $(document).ready(function() {
 					
                                              }});
                                              }// Fin muestra mapa
-					 function SalvaPosicao(lati, longi, speed) {
-					     var numero_equipamento = '91981779001';
-					     var numeo_central = '91981779001';
-					     
-                         
-                         var bat = "L";
-                         var signal = "L";
-                         var imei = "123456794512";
-                         var safe = "L";
-					     $.ajax({
-					         type: "get",
-					         url: "http://www.onbyte.com.br/rastro/api/indexa/salva?numero_equipamento=" + numero_equipamento + "&numeo_central=" + numeo_central + "&lati=" + lati + "&longi=" + longi + "&speed=" + speed + "&bat=" + bat + "&signal=" + signal + "&imei=" + imei + "&safe=" + safe,
-                             dataType: "json",
-					         success: function (response, status) {
-					             debugger;
-					         }
-					     });
-					 }
+					
+//                    function SalvaPosicao(lati, longi, speed) {
+//					     var numero_equipamento = '91981779001';
+//					     var numeo_central = '91981779001';
+//					     
+//                         
+//                         var bat = "L";
+//                         var signal = "L";
+//                         var imei = "123456794512";
+//                         var safe = "L";
+//					     $.ajax({
+//					         type: "get",
+//					         url: "http://www.onbyte.com.br/rastro/api/indexa/salva?numero_equipamento=" + numero_equipamento + "&numeo_central=" + numeo_central + "&lati=" + lati + "&longi=" + longi + "&speed=" + speed + "&bat=" + bat + "&signal=" + signal + "&imei=" + imei + "&safe=" + safe,
+//                             dataType: "json",
+//					         success: function (response, status) {
+//					             debugger;
+//					         }
+//					     });
+//					 }
 				});			
 }(jQuery));
 
