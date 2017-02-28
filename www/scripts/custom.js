@@ -640,9 +640,9 @@ $(document).ready(function() {
 		    debugger;
 				var defaultPos = new google.maps.LatLng(19.289168, -99.653440);
 				
-				if (navigator.geolocation) {
+				//if (navigator.geolocation) {
 		                function exito(pos) {
-                     		MuestraMapa(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+                     		setInterval(MuestraMapa(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude)),10000);
                      		//setInterval(SalvaPosicao(pos.coords.latitude, pos.coords.longitude, "30"), 10000);
                    		}
 						function falla(error) {
@@ -655,13 +655,13 @@ $(document).ready(function() {
 					//enableHighAccuracy: Se tratan de obtener los mejores resultados posible del GPS
 					//timeout: el tiempo maximo que se espera para obtener la posicion en este caso 5 segundos
 						var options = {maximumAge: 500000, enableHighAccuracy:true, timeout: 5000};
-						navigator.geolocation.getCurrentPosition(exito, falla, options);
+						//navigator.geolocation.getCurrentPosition(exito, falla, options);
 						
-					}//FIN IF
-					else {
+					//}//FIN IF
+					//else {
 				    MuestraMapa(defaultPos);  // No soporta geolocalizacion y dibuja el mapa en posicion Default
 				   
-               		 }
+               		 //}
                          
                         
 					 //FUNCION DIBUJAR MAPa
@@ -679,31 +679,31 @@ $(document).ready(function() {
            
 						var myOptions = {
                         zoom: 16,
-                        center: latlng,
+                        center: {lat: parseFloat(response.resultado.lati), lng: parseFloat(response.resultado.longi)},
 						disableDefaultUI: true,
                         mapTypeId: google.maps.MapTypeId.ROADMAP};
 						
 						var map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
 						var infowindow = new google.maps.InfoWindow({
-                                  position: latlng,
+                                  position: {lat: parseFloat(response.resultado.lati), lng: parseFloat(response.resultado.longi)},
                                   content: '<p>Localização</p>'+latlng
 								  });
 						
 						var markerC = new google.maps.Marker({
-							position: carPosision,
+							position: {lat: parseFloat(response.resultado.lati), lng: parseFloat(response.resultado.longi)},
 							map: map,
 							title: "Carro",
 							animation: google.maps.Animation.DROP,
                                                         icon: 'marker.png'
                     	});
-                        var marker = new google.maps.Marker({
-							position: latlng,
-							map: map,
-							title: "Minha Posição",
-							animation: google.maps.Animation.DROP
-                                                        
-                    	});
-						google.maps.event.addListener(marker, 'click', function() {infowindow.open(map,marker);});
+//                        var marker = new google.maps.Marker({
+//							position: latlng,
+//							map: map,
+//							title: "Minha Posição",
+//							animation: google.maps.Animation.DROP
+//                                                        
+//                    	});
+						//google.maps.event.addListener(marker, 'click', function() {infowindow.open(map,marker);});
 						 google.maps.event.addListener(markerC, 'click', function() {infowindow.open(map,markerC);});
 					
                                              }});
